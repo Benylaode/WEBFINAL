@@ -1,6 +1,12 @@
 import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///concert_app.db')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'mysql+pymysql://root@localhost:3308/tiket')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = os.getenv('SECRET_KEY', 'mysecretkey')
+
+
+app = Flask(__name__)
+app.config.from_object(Config)
+db = SQLAlchemy(app)

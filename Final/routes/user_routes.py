@@ -1,13 +1,9 @@
 from flask import request, jsonify
 from models import User
 from . import user_bp
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from config import Config
+from config import db
 
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
 
 @user_bp.route('/users', methods=['GET'])
 def get_users():
@@ -26,7 +22,7 @@ def create_user():
         role=data['role'],
         name=data['name'],
         email=data['email'],
-        no_telp=data['no_telp'],
+        noTelp=data['no_telp'],  # Sesuaikan dengan nama kolom yang ada di model User
         balance=data.get('balance', 100000)
     )
     db.session.add(new_user)
@@ -40,7 +36,7 @@ def update_user(id):
     user.role = data['role']
     user.name = data['name']
     user.email = data['email']
-    user.no_telp = data['no_telp']
+    user.noTelp = data['no_telp']  # Sesuaikan dengan nama kolom yang ada di model User
     user.balance = data['balance']
     db.session.commit()
     return jsonify(user.to_dict())

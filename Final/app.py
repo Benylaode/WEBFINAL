@@ -1,12 +1,4 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from config import Config
-from werkzeug.utils import quote as url_quote
-
-
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
+from config import app, db
 
 # Import and register blueprints
 from routes.user_routes import user_bp

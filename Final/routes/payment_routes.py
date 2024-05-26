@@ -3,11 +3,7 @@ from models import Payment
 from . import payment_bp 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from config import Config
-
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app) 
+from config import db
 
 @payment_bp.route('/payments', methods=['GET'])
 def get_payments():
@@ -25,7 +21,7 @@ def create_payment():
     new_payment = Payment(
         idUser=data['idUser'],
         idTicket=data['idTicket'],
-        payment_date=data['payment_date'],
+        paymentDate=data['paymentDate'],  # Sesuaikan dengan nama kolom yang ada di model Payment
         amount=data['amount']
     )
     db.session.add(new_payment)
@@ -38,7 +34,7 @@ def update_payment(id):
     payment = Payment.query.get_or_404(id)
     payment.idUser = data['idUser']
     payment.idTicket = data['idTicket']
-    payment.payment_date = data['payment_date']
+    payment.paymentDate = data['paymentDate']  # Sesuaikan dengan nama kolom yang ada di model Payment
     payment.amount = data['amount']
     db.session.commit()
     return jsonify(payment.to_dict())

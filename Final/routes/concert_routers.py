@@ -1,13 +1,8 @@
 from flask import request, jsonify
 from models import Concert
 from . import concert_bp
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from config import Config
+from config import db
 
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
 
 @concert_bp.route('/concerts', methods=['GET'])
 def get_concerts():
@@ -25,9 +20,9 @@ def create_concert():
     new_concert = Concert(
         nama=data['nama'],
         lokasi=data['lokasi'],
-        image_concert=data['image_concert'],
-        start_date=data['start_date'],
-        end_date=data['end_date'],
+        imageConcert=data['imageConcert'],
+        startDate=data['startDate'],  # Sesuaikan dengan nama kolom yang ada di model Concert
+        endDate=data['endDate'],  # Sesuaikan dengan nama kolom yang ada di model Concert
         deskripsi=data['deskripsi'],
         idBand=data['idBand']
     )
@@ -41,9 +36,9 @@ def update_concert(id):
     concert = Concert.query.get_or_404(id)
     concert.nama = data['nama']
     concert.lokasi = data['lokasi']
-    concert.image_concert = data['image_concert']
-    concert.start_date = data['start_date']
-    concert.end_date = data['end_date']
+    concert.imageConcert = data['imageConcert']
+    concert.startDate = data['startDate']  # Sesuaikan dengan nama kolom yang ada di model Concert
+    concert.endDate = data['endDate']  # Sesuaikan dengan nama kolom yang ada di model Concert
     concert.deskripsi = data['deskripsi']
     concert.idBand = data['idBand']
     db.session.commit()

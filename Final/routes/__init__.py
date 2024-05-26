@@ -1,5 +1,4 @@
 from flask import Blueprint
-from werkzeug.utils import quote as url_quote
 
 user_bp = Blueprint('user_bp', __name__)
 concert_bp = Blueprint('concert_bp', __name__)
